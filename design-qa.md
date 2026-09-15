@@ -2,6 +2,20 @@
 
 final result: passed
 
+## Continuous homepage — 15 September 2026
+
+This entry supersedes earlier homepage appearance notes. Reference: `C:/Users/joelk/AppData/Local/Temp/codex-clipboard-07f92e9d-bccd-4d39-8677-5d0862b8f3ad.jpg`. The requested change is the reference's continuous visual flow, adapted to Nascere's existing palette, assets and content.
+
+- Replaced separate horizontal bands with a shared ivory-to-yellow garden behind the hero, introduction and programs. The journal and philosophy share a pale teal background with curved transitions into and out of that area. Contact and footer share one ivory canvas.
+- Removed homepage program card boxes and used spacious, circular icon treatments. Added editorial serif headings and a lightly staggered journal image arrangement. Full original journal images remain visible.
+- Feathered the existing hero artwork at its intrinsic aspect ratio, including on tablet. Kept the supplied wordmark and recurring source flower. Animation fill no longer leaves isolated white backgrounds behind flowers after entrance effects finish.
+- Verified at 1280 × 720, 768 × 1024 and 390 × 844 CSS viewports. No horizontal page overflow at any tested width. Mobile menu opens, closes with Escape and restores focus. Program links open the matching detail page. The Toys page renders six entries; Build filtering returns two, with item-specific WhatsApp links intact.
+- Build passed: 13 prerendered routes, one H1 per route, route metadata and sitemap checks passed. Browser warning/error log was empty across the tested routes. Existing reduced-motion rules still disable entrance and hover animations.
+- Evidence: `qa/continuous-desktop-hero.png`, `qa/continuous-programs-transition.png`, `qa/continuous-tablet.png`, `qa/continuous-mobile-hero.png`, `qa/continuous-mobile-contact.png`. Viewport captures are used because the browser's full-page stitch introduced duplicate fragments; DOM inspection confirms only one instance of each page area.
+- Final visual review: headline hierarchy, body readability, spacing, image boundaries, color continuity, responsive wrapping and navigation checked. No outstanding blocking findings in the tested views. Screenshot files from earlier iterations remain historical evidence, not the current design.
+
+final result: passed
+
 ## Latest logo and hero refinement — 7 September 2026
 
 - Source visual truth: `C:/Users/joelk/Downloads/Untitled design (9).png`, 240 × 240 pixels. The visible wordmark occupies the horizontal center of its white source canvas.

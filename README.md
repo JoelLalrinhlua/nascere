@@ -21,6 +21,7 @@ The build renders complete HTML for 13 routes, including the toy catalogue plus 
 - `src/App.jsx`: route selection and page-level behavior.
 - `src/index.css`: base layout and responsive rules.
 - `src/brand.css`: original brand colors, typography, flower treatments and responsive art direction.
+- `src/continuous.css`: homepage-only continuous landscape, curved transitions, open program layouts and responsive image blending.
 - `build-pages.mjs` and `src/render.jsx`: static prerendering.
 
 The contact form and toy catalogue prepare WhatsApp drafts for the verified studio number. They do not submit or store personal information locally. WhatsApp is the enquiry destination; no booking or payment system is implied. Class fees, toy prices, timings and availability are confirmed by the studio.

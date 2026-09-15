@@ -58,11 +58,15 @@ export default function App({ initialPath } = {}) {
   if (path === "/")
     content = (
       <>
-        <Hero />
-        <Introduction />
-        <Programs />
-        <Journal />
-        <Approach />
+        <div className="home-garden">
+          <Hero />
+          <Introduction />
+          <Programs />
+        </div>
+        <div className="home-stories">
+          <Journal />
+          <Approach />
+        </div>
         <ContactCTA />
       </>
     );
@@ -110,13 +114,13 @@ export default function App({ initialPath } = {}) {
       </section>
     );
   return (
-    <>
+    <div className={path === "/" ? "site site-home" : "site"}>
       <a href="#main" className="skip-link">
         Skip to content
       </a>
       <Header path={path} />
       <main id="main">{content}</main>
       <Footer />
-    </>
+    </div>
   );
 }

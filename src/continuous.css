@@ -1,0 +1,221 @@
+/* The homepage shares one landscape; detail pages keep their own layouts. */
+.site-home {
+  --garden: #fff1c8;
+  --pond: #def0e9;
+  --canvas: #fffaf0;
+  background: var(--canvas);
+  overflow: clip;
+}
+.site-home header { background: var(--canvas); }
+.site-home .nav-wrap { border: 0; height: 100px; }
+.site-home .brand img { mix-blend-mode: multiply; }
+.site-home .reveal.visible { transform: none; animation-fill-mode: backwards; }
+.site-home .hero-copy { animation-fill-mode: backwards; }
+.site-home .nav-cta { background: transparent; border-radius: 30px; }
+.site-home .home-garden {
+  background: linear-gradient(to bottom, var(--canvas) 0, #fff7df 540px, var(--garden) 860px);
+}
+.site-home .hero,
+.site-home .introduction,
+.site-home .programs,
+.site-home .journal,
+.site-home .approach {
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+}
+.site-home .hero { overflow: visible; }
+.site-home .hero-main {
+  min-height: 600px;
+  grid-template-columns: 1fr 1.1fr;
+  padding: 10px 0 0;
+}
+.site-home .hero-copy { padding: 0 0 28px; }
+.site-home .hero h1 {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(66px, 6.5vw, 96px);
+  font-weight: 400;
+  line-height: .97;
+  letter-spacing: -.045em;
+}
+.site-home .hero h1 em { font-size: .94em; letter-spacing: -.045em; }
+.site-home .hero-copy .eyebrow { margin-bottom: 30px; }
+.site-home .hero-copy > p:not(.eyebrow) { margin-top: 30px; font-size: 15px; }
+.site-home .hero-copy > p.hero-note:not(.eyebrow) { margin-top: 19px; font-size: 10px; }
+.site-home .hero-actions .button { border-radius: 30px; box-shadow: none; }
+.site-home .hero-art {
+  width: calc(100% + 180px);
+  height: auto;
+  left: -65px;
+  top: 50%;
+  translate: 0 -50%;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+  /* Feather the raster canvas into the continuous landscape on every edge. */
+  mask-image: linear-gradient(to right, transparent, #000 12%, #000 90%, transparent), linear-gradient(to bottom, transparent, #000 14%, #000 72%, transparent 98%);
+  mask-composite: intersect;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 12%, #000 90%, transparent), linear-gradient(to bottom, transparent, #000 14%, #000 72%, transparent 98%);
+  -webkit-mask-composite: source-in;
+}
+.site-home .art-caption { bottom: 30px; right: 0; font-size: 21px; }
+.site-home .hero-foot {
+  background: transparent;
+  border: 0;
+  position: relative;
+  margin-top: -4px;
+}
+.site-home .hero-foot > .wrap { justify-content: flex-start; gap: 28px; min-height: 76px; }
+.site-home .hero-foot > .wrap > span:not(.flower-mark) { font-size: 23px; }
+.site-home .hero-foot small { border: 0; margin-left: auto; padding: 0; }
+.site-home .hero-foot .flower-mark { --flower-size: 25px !important; }
+.site-home .introduction { padding: 115px 0 65px; }
+.site-home .intro-grid { grid-template-columns: 1fr 1fr; gap: 100px; align-items: center; }
+.site-home h2 {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(48px, 4.7vw, 68px);
+  font-weight: 400;
+  line-height: 1.04;
+  letter-spacing: -.04em;
+}
+.site-home .intro-copy { padding: 0 15px 0 0; }
+.site-home .intro-copy > .flower-mark { right: -12px; top: -83px; transform: rotate(13deg); }
+.site-home .intro-copy p { font-size: 14px; line-height: 1.85; }
+.site-home .programs { padding: 65px 0 125px; }
+.site-home .section-heading { margin-bottom: 48px; }
+.site-home .section-heading > p { font-size: 13px; }
+.site-home .program-grid { gap: 36px; }
+.site-home .program-card,
+.site-home .program-card:hover {
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  overflow: visible;
+  text-align: center;
+  transform: none;
+}
+.site-home .program-icon {
+  width: 150px;
+  height: 150px;
+  margin: 0 auto 24px;
+  border-radius: 49% 51% 45% 55% / 53% 45% 55% 47%;
+}
+.site-home .program-icon svg { width: 59px; height: 59px; }
+.site-home .program-card:nth-child(2) .program-icon { border-radius: 56% 44% 54% 46% / 45% 56% 44% 55%; }
+.site-home .program-card:nth-child(3) .program-icon { border-radius: 43% 57% 46% 54% / 53% 47% 53% 47%; }
+.site-home .program-card .peach { background: #f9dbe2; }
+.site-home .program-card .butter { background: #ffe7a1; }
+.site-home .program-card .mint { background: #cceadd; }
+.site-home .program-card .blue { background: #e5ddf4; }
+.site-home .program-number { display: none; }
+.site-home .program-card h3 { min-height: 0; font-size: 21px; margin-bottom: 12px; font-weight: 500; }
+.site-home .program-card p { font-size: 12px; min-height: 82px; line-height: 1.75; }
+.site-home .program-link { display: inline-flex; border: 0; padding-top: 0; margin-top: 15px; gap: 16px; font-size: 12px; }
+.site-home .program-card:hover .program-link { color: var(--pink); }
+.site-home .home-stories {
+  position: relative;
+  background: var(--pond);
+  padding: 25px 0 70px;
+}
+.site-home .home-stories::before,
+.site-home .home-stories::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 110px;
+  pointer-events: none;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+.site-home .home-stories::before { bottom: calc(100% - 1px); background-image: url('/assets/landscape-edge.svg'); }
+.site-home .home-stories::after { bottom: -1px; background-image: url('/assets/landscape-return.svg'); }
+.site-home .journal { padding: 25px 0 65px; margin: 0; }
+.site-home .journal h2 em { color: #226e61; }
+.site-home .work-grid { gap: 38px; align-items: start; }
+.site-home .work-card:nth-child(2) { padding-top: 48px; }
+.site-home .work-image { border-radius: 8px; background: transparent; transform: rotate(-2deg); }
+.site-home .work-card:nth-child(2) .work-image { transform: rotate(2deg); }
+.site-home .work-card:nth-child(3) .work-image { transform: rotate(-1deg); }
+.site-home .work-image img { border-radius: inherit; }
+.site-home .work-caption { padding-top: 18px; }
+.site-home .work-caption h3 { font-family: "Cormorant Garamond", Georgia, serif; font-size: 31px; }
+.site-home .work-caption .eyebrow { font-size: 9px; color: #385e52; }
+.site-home .approach { padding: 55px 0 120px; overflow: visible; }
+.site-home .approach h2 { font-size: clamp(48px, 4.7vw, 68px); }
+.site-home .approach-flower { right: 14%; top: 60px; mix-blend-mode: multiply; }
+.site-home .approach-flower .flower-mark { --flower-size: 110px !important; }
+.site-home .principles { margin-top: 45px; gap: 50px; }
+.site-home .principles > div { border: 0; padding: 0; }
+.site-home .principles span { color: #385e52; }
+.site-home .principles h3 { font-size: 22px; margin-top: 10px; }
+.site-home .principles p { color: #3f5c52; font-size: 13px; }
+.site-home .contact-cta { padding: 55px 0 80px; }
+.site-home .contact-cta h2 { font-size: clamp(48px, 4.7vw, 68px); }
+.site-home .contact-cta .button { border-radius: 30px; }
+.site-home footer { background: var(--canvas); border: 0; padding-top: 25px; }
+.site-home .footer-bottom { border-color: #24232015; }
+
+@media (min-width: 651px) and (max-width: 1000px) {
+  .site-home .nav-wrap { height: 90px; }
+  .site-home nav { gap: 17px; }
+  .site-home .nav-cta { display: none; }
+  .site-home .hero-main { min-height: 510px; grid-template-columns: 1fr 1fr; }
+  .site-home .hero h1 { font-size: clamp(52px, 7vw, 70px); }
+  .site-home .hero-art { width: calc(100% + 75px); left: -25px; }
+  .site-home .art-caption { bottom: 37px; font-size: 17px; }
+  .site-home .intro-grid { gap: 60px; }
+  .site-home .program-grid { gap: 22px; }
+  .site-home .program-icon { width: 118px; height: 118px; }
+  .site-home .program-card h3 { font-size: 18px; min-height: 44px; }
+  .site-home .program-card p { min-height: 105px; }
+  .site-home .work-grid { gap: 22px; }
+}
+@media (max-width: 650px) {
+  .site-home .nav-wrap { height: 82px; }
+  .site-home .hero-main { min-height: 0; display: flex; padding: 35px 0 0; }
+  .site-home .hero-copy { padding: 0; }
+  .site-home .hero h1 { font-size: clamp(53px, 13.2vw, 82px); }
+  .site-home .hero-copy .eyebrow { margin-bottom: 23px; }
+  .site-home .hero-copy > p:not(.eyebrow) { font-size: 14px; margin-top: 23px; }
+  .site-home .hero-copy > p.hero-note:not(.eyebrow) { margin-top: 15px; font-size: 9px; }
+  .site-home .hero-visual { height: auto; aspect-ratio: 1.45; margin: 0 -20px -14px; }
+  .site-home .hero-art { width: 100%; height: auto; left: 0; top: 50%; }
+  .site-home .art-caption { display: none; }
+  .site-home .hero-foot > .wrap { justify-content: space-between; gap: 10px; min-height: 50px; }
+  .site-home .hero-foot > .wrap > span:not(.flower-mark) { font-size: 21px; gap: 6px; }
+  .site-home .hero-foot .flower-mark { --flower-size: 20px !important; }
+  .site-home .introduction { padding: 68px 0 32px; }
+  .site-home .intro-grid { grid-template-columns: 1fr; gap: 28px; }
+  .site-home h2,
+  .site-home .section-heading h2,
+  .site-home .approach h2,
+  .site-home .contact-cta h2 { font-size: clamp(41px, 10.7vw, 58px); line-height: 1.06; }
+  .site-home .intro-copy { padding: 0; }
+  .site-home .intro-copy > .flower-mark { top: -58px; right: 0; --flower-size: 42px !important; }
+  .site-home .intro-copy p { font-size: 13px; }
+  .site-home .programs { padding: 45px 0 95px; }
+  .site-home .section-heading { margin-bottom: 34px; gap: 22px; }
+  .site-home .section-heading > p { font-size: 12px; }
+  .site-home .program-grid { grid-template-columns: 1fr 1fr; gap: 32px 22px; }
+  .site-home .program-icon { width: 116px; height: 116px; margin-bottom: 20px; }
+  .site-home .program-icon svg { width: 47px; height: 47px; }
+  .site-home .program-card h3 { font-size: 18px; min-height: 44px; }
+  .site-home .program-card p { font-size: 11px; min-height: 98px; }
+  .site-home .program-link { font-size: 11px; margin-top: 12px; }
+  .site-home .home-stories { padding: 10px 0 45px; }
+  .site-home .home-stories::before,
+  .site-home .home-stories::after { height: 52px; }
+  .site-home .journal { padding: 10px 0 40px; }
+  .site-home .work-grid { grid-template-columns: 1fr; gap: 35px; }
+  .site-home .work-card { width: 88%; }
+  .site-home .work-card:nth-child(2) { padding-top: 0; justify-self: end; }
+  .site-home .work-caption h3 { font-size: 29px; }
+  .site-home .approach { padding: 25px 0 65px; }
+  .site-home .approach-flower { right: 25px; top: -10px; }
+  .site-home .approach-flower .flower-mark { --flower-size: 47px !important; }
+  .site-home .principles { gap: 28px; margin-top: 32px; }
+  .site-home .principles h3 { margin: 7px 0 9px; }
+  .site-home .contact-cta { padding: 28px 0 60px; }
+  .site-home footer { padding-top: 15px; }
+}
