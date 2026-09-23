@@ -12,6 +12,8 @@ for p in pages:
  c=Check();c.feed(p.read_text(encoding='utf-8'));assert c.h1==1,(p,c.h1);assert '\ufffd' not in c.text,p;assert c.meta.get('description'),p
 print(f'PASS: {len(pages)} prerendered routes, each with one H1, metadata and valid text.')
 assert 'Keyboard, rhythm' in Path('dist/programs/music/index.html').read_text(encoding='utf-8')
-assert Path('dist/sitemap.xml').read_text().count('<url>')==13
+assert Path('dist/sitemap.xml').read_text().count('<url>')==14
 assert 'Little toys.' in Path('dist/toys/index.html').read_text(encoding='utf-8')
-print('PASS: Music-specific metadata, toy catalogue and 13 sitemap URLs.')
+assert 'noindex' in Path('dist/admin/index.html').read_text(encoding='utf-8')
+assert '/admin/' not in Path('dist/sitemap.xml').read_text(encoding='utf-8')
+print('PASS: Music-specific metadata, toy catalogue, private admin entry and 14 sitemap URLs.')

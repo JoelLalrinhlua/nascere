@@ -1,6 +1,9 @@
 import { createServer } from "vite";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 const pages = {
+  "/admin": ["Studio desk", "Manage Nascere Studio posts, toys and memories."],
+  "/memories": ["Memories", "A photo album of colorful days, curious minds and creative moments at Nascere Studio."],
+  "/journal/post": ["Studio story", "Stories and creative discoveries from Nascere Studio."],
   "/": [
     "Little minds. Big possibilities.",
     "Arts, craft and music for children aged 3–12 at Nascere Studio in Aizawl, Mizoram.",
@@ -55,6 +58,7 @@ const pages = {
   ],
 };
 const server = await createServer({
+  mode: 'production',
   server: { middlewareMode: true },
   appType: "custom",
 });
@@ -64,7 +68,7 @@ const escape = (s) => s.replaceAll("&", "&amp;").replaceAll('"', "&quot;");
 for (const [route, [title, description]] of Object.entries(pages)) {
   const canonical =
     "https://www.nascere.in" + (route === "/" ? "/" : route + "/");
-  const html = source
+  let html = source
     .replace(
       /<title>.*?<\/title>/,
       `<title>${escape(title)} | Nascere Studio</title>`,
@@ -83,6 +87,7 @@ for (const [route, [title, description]] of Object.entries(pages)) {
     )
     .replace(/(<meta\s+property="og:url"\s+content=")[^"]*/, `$1${canonical}`)
     .replace(/(<link rel="canonical" href=")[^"]*/, `$1${canonical}`);
+  if (route === '/admin' || route === '/journal/post') html = html.replace('</head>', '<meta name="robots" content="noindex, nofollow" /></head>');
   const dir = "dist" + (route === "/" ? "" : route);
   await mkdir(dir, { recursive: true });
   await writeFile(
@@ -95,12 +100,13 @@ for (const [route, [title, description]] of Object.entries(pages)) {
 }
 await writeFile(
   "dist/robots.txt",
-  "User-agent: *\nAllow: /\nSitemap: https://www.nascere.in/sitemap.xml\n",
+  "User-agent: *\nAllow: /\nDisallow: /admin/\nSitemap: https://www.nascere.in/sitemap.xml\n",
 );
 await writeFile(
   "dist/sitemap.xml",
   '<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' +
     Object.keys(pages)
+      .filter(p => p !== '/admin' && p !== '/journal/post')
       .map(
         (p) =>
           "<url><loc>https://www.nascere.in" +

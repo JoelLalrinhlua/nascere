@@ -11,7 +11,11 @@ A responsive, illustrated redesign for Nascere's arts, craft and music studio in
 
 On this machine, use `C:\Program Files\nodejs\npm.cmd` if the default npm command points to a missing installation.
 
-The build renders complete HTML for 13 routes, including the toy catalogue plus program and journal detail pages. It generates route-specific metadata, canonical URLs, Open Graph tags, robots.txt and sitemap.xml. Host the generated `dist` directory with directory-index support and trailing-slash redirects. Internal links and canonical URLs use trailing slashes. The local production preview redirects slashless page URLs to their directory forms, preventing homepage HTML from being served for a detail page. The canonical production domain is https://www.nascere.in/; update the metadata before deploying to another domain.
+The build creates HTML entry files for 16 routes, including the admin dashboard, Memories gallery, toy catalogue and program/journal detail pages. With Supabase connected, managed content loads in the browser after the page shell; without it, the original journal and toys are prerendered. It generates route-specific metadata, canonical URLs, Open Graph tags, robots.txt and a 14-URL sitemap. Admin and the generic dynamic post entry are excluded from indexing. Host `dist` with directory-index support and trailing-slash redirects; `vercel.json` supplies the Vercel settings. The canonical domain is https://www.nascere.in/.
+
+## Admin dashboard
+
+Open `/admin/` to manage posts, toys and memory photos. Read [ADMIN-SETUP.md](ADMIN-SETUP.md) for the Supabase migration, editor account, Vercel environment values and local demonstration mode. A Supabase project must be connected before live editing works. Do not use a service-role or secret key in this frontend.
 
 ## Content and architecture
 
@@ -22,6 +26,11 @@ The build renders complete HTML for 13 routes, including the toy catalogue plus 
 - `src/index.css`: base layout and responsive rules.
 - `src/brand.css`: original brand colors, typography, flower treatments and responsive art direction.
 - `src/continuous.css`: homepage-only continuous landscape, curved transitions, open program layouts and responsive image blending.
+- `src/admin/`: editor login, dashboard, publishing forms and responsive dashboard styles.
+- `src/cms/`: Supabase access, shared public content, validation, image preparation and development-only IndexedDB preview.
+- `src/Memories.jsx`: public photo album and accessible enlarged-photo viewer.
+- `supabase/migrations/`: content schema, editor allowlist and database/photo access policies.
+- `tests/cms.test.mjs`: content validation and executable PostgreSQL policy checks (`npm test`).
 - `build-pages.mjs` and `src/render.jsx`: static prerendering.
 
 The contact form and toy catalogue prepare WhatsApp drafts for the verified studio number. They do not submit or store personal information locally. WhatsApp is the enquiry destination; no booking or payment system is implied. Class fees, toy prices, timings and availability are confirmed by the studio.

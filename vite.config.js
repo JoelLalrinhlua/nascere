@@ -8,7 +8,7 @@ const directoryRoutes = {
     server.middlewares.use((req, res, next) => {
       const url = new URL(req.url, "http://localhost");
       if (
-        /^\/(studio|contact|programs|journal|toys)(\/[^/.]+)?$/.test(url.pathname)
+        /^\/(studio|contact|programs|journal|toys|memories|admin)(\/[^/.]+)?$/.test(url.pathname)
       ) {
         res.statusCode = 302;
         res.setHeader("Location", url.pathname + "/" + url.search);

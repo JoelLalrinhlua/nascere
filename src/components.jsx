@@ -12,7 +12,8 @@ import {
   MapPin,
   InstagramLogo,
 } from "@phosphor-icons/react";
-import { WA, programs, works } from "./content";
+import { WA, programs } from "./content";
+import { ContentState, useContent } from "./cms/ContentProvider";
 export function LinkButton({ children, to = "/contact/", light = false }) {
   return (
     <a className={`button ${light ? "light" : ""}`} href={to}>
@@ -112,6 +113,7 @@ export function Header({ path }) {
             Studio journal
           </a>
           <a href="/contact/">Get in touch</a>
+          <a href="/memories/" aria-current={path === '/memories' ? 'page' : undefined}>Memories</a>
           <a className="mobile-enroll" href={WA}>
             Enquire about a class
           </a>
@@ -279,22 +281,22 @@ export function Programs({ page = false }) {
 }
 export function WorkCard({ work }) {
   return (
-    <a className="work-card reveal" href={"/journal/" + work.slug + "/"}>
+    <a className="work-card reveal" href={work.managed ? '/journal/post/?slug=' + encodeURIComponent(work.slug) : "/journal/" + work.slug + "/"}>
       <div className="work-image">
-        <img
-          src={"/assets/" + work.image + ".jpg"}
-          alt={work.title + " — original post from Nascere Studio"}
+        {(work.imageUrl || work.image) ? <img
+          src={work.imageUrl || "/assets/" + work.image + ".jpg"}
+          alt={work.imageAlt || work.title + " — original post from Nascere Studio"}
           width="512"
           height="640"
           loading="lazy"
-        />
+        /> : <div className="post-placeholder"><PaintBrush size={80} weight="thin" /></div>}
         <span className="image-arrow">
           <ArrowUpRight size={24} />
         </span>
       </div>
       <div className="work-caption">
         <div>
-          <Eyebrow>{work.category} · FROM OUR INSTAGRAM</Eyebrow>
+          <Eyebrow>{work.category} · {work.post ? 'FROM OUR INSTAGRAM' : 'STUDIO JOURNAL'}</Eyebrow>
           <h3>{work.title}</h3>
         </div>
         <ArrowUpRight size={23} />
@@ -303,6 +305,7 @@ export function WorkCard({ work }) {
   );
 }
 export function Journal({ page = false }) {
+  const { posts: works } = useContent();
   const Heading = page ? "h1" : "h2";
   const [filter, setFilter] = useState("All");
   return (
@@ -325,7 +328,7 @@ export function Journal({ page = false }) {
         </div>
         {page && (
           <div className="filters" aria-label="Filter journal">
-            {["All", "Art", "Learning"].map((f) => (
+            {["All", ...new Set(works.map(w => w.category))].map((f) => (
               <button
                 key={f}
                 aria-pressed={f === filter}
@@ -336,9 +339,11 @@ export function Journal({ page = false }) {
             ))}
           </div>
         )}
+        <ContentState empty={!works.length} />
         <div className="work-grid">
           {works
             .filter((w) => filter === "All" || w.category === filter)
+            .slice(0, page ? undefined : 3)
             .map((w) => (
               <WorkCard key={w.slug} work={w} />
             ))}
@@ -423,6 +428,7 @@ export function Footer() {
           <a href="/programs/">Programs</a>
           <a href="/toys/">Our toys</a>
           <a href="/journal/">Studio journal</a>
+          <a href="/memories/">Memories</a>
         </div>
         <div>
           <Eyebrow>COME SAY HELLO</Eyebrow>

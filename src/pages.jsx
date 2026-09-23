@@ -12,7 +12,8 @@ import {
   MapPin,
   InstagramLogo,
 } from "@phosphor-icons/react";
-import { WA, programs, works, toys } from "./content";
+import { WA, programs } from "./content";
+import { ContentState, useContent } from "./cms/ContentProvider";
 import { LinkButton, Eyebrow, WorkCard, ContactCTA, FlowerMark } from "./components";
 export function ProgramDetail({ program: p }) {
   return (
@@ -61,6 +62,7 @@ export function ProgramDetail({ program: p }) {
   );
 }
 export function WorkDetail({ work: w }) {
+  const { posts: works } = useContent();
   return (
     <section className="wrap page-section work-detail">
       <a className="text-link" href="/journal/">
@@ -71,22 +73,23 @@ export function WorkDetail({ work: w }) {
           <Eyebrow>{w.category} · STUDIO JOURNAL</Eyebrow>
           <h1>{w.title}</h1>
           <p>{w.caption}</p>
-          <a
+          {w.post && <a
             className="text-link"
             href={"https://www.instagram.com/nascere_studio/p/" + w.post + "/"}
             target="_blank"
             rel="noreferrer"
           >
             See the original studio post <ArrowUpRight />
-          </a>
+          </a>}
         </div>
-        <img
-          src={"/assets/" + w.image + ".jpg"}
-          alt={w.title + " — original Nascere Studio journal image"}
+        {(w.imageUrl || w.image) && <img
+          src={w.imageUrl || "/assets/" + w.image + ".jpg"}
+          alt={w.imageAlt || w.title + " — original Nascere Studio journal image"}
           width="512"
           height="640"
-        />
+        />}
       </div>
+      {w.body && <div className="post-body">{w.body.split(/\n\s*\n/).filter(Boolean).map((paragraph, index) => <p key={index}>{paragraph}</p>)}</div>}
       <h2>Keep exploring</h2>
       <div className="work-grid related">
         {works
@@ -184,6 +187,7 @@ export function Contact() {
 }
 
 export function Toys() {
+  const { toys } = useContent();
   const [filter, setFilter] = useState("All");
   const categories = ["All", ...new Set(toys.map((toy) => toy.category))];
   const visible = toys.filter((toy) => filter === "All" || toy.category === filter);
@@ -211,16 +215,18 @@ export function Toys() {
           ))}
         </div>
         <div className="toy-grid" aria-live="polite">
+          <ContentState empty={!toys.length}>New playthings are on their way. Ask the studio about the current selection.</ContentState>
           {visible.map((toy) => {
-            const Icon = toy.icon;
+            const Icon = toy.icon || Shapes;
             return (
-              <article className={`toy-card toy-${toy.color} reveal visible`} key={toy.name}>
-                <div className="toy-art"><Icon size={86} weight="thin" /><FlowerMark size={28} /></div>
+              <article className={`toy-card toy-${toy.color} reveal visible`} key={toy.id || toy.name}>
+                <div className="toy-art">{toy.imageUrl ? <img src={toy.imageUrl} alt={toy.imageAlt || toy.name} loading="lazy"/> : <><Icon size={86} weight="thin" /><FlowerMark size={28} /></>}</div>
                 <div className="toy-meta"><span>{toy.category}</span><span>{toy.age}</span></div>
                 <h2>{toy.name}</h2>
                 <p>{toy.description}</p>
-                <h3>What it helps grow</h3>
-                <ul>{toy.develops.map((benefit) => <li key={benefit}>{benefit}</li>)}</ul>
+                {toy.price !== '' && toy.price != null && <p className="toy-price">₹{Number(toy.price).toLocaleString('en-IN', { minimumFractionDigits: Number.isInteger(Number(toy.price)) ? 0 : 2, maximumFractionDigits: 2 })}</p>}
+                {toy.develops.filter(Boolean).length > 0 && <><h3>What it helps grow</h3>
+                <ul>{toy.develops.filter(Boolean).map((benefit,index) => <li key={index}>{benefit}</li>)}</ul></>}
                 <a className="button toy-button" href={enquire(toy.name)} target="_blank" rel="noreferrer">Ask about this toy <ArrowUpRight size={17} /></a>
               </article>
             );
